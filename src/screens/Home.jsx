@@ -13,6 +13,8 @@ import brand5 from "../assets/img/brand5.png";
 import brand6 from "../assets/img/brand6.png";
 import TopSellerProducts from "../components/homeScreen/TopSellerProducts";
 import TopNewProducts from "../components/homeScreen/TopNewProducts";
+import RecentViewedProducts from "../components/homeScreen/RecentViewedProducts";
+import Footer from "../components/Footer";
 export default function Home() {
   const Carousel = () => {
     return (
@@ -68,11 +70,12 @@ export default function Home() {
       </div>
     );
   };
-  const Promo = ({ name, icon }) => {
+  const Promo = ({ name, icon, index }) => {
+    let classNameI = "single-promo promo" + index;
     let className = "fa fa-" + icon;
     return (
       <div className="col-md-3 col-sm-6">
-        <div className="single-promo promo1">
+        <div className={classNameI}>
           <i className={className} />
           <p>{name}</p>
         </div>
@@ -90,10 +93,10 @@ export default function Home() {
         <div className="zigzag-bottom" />
         <div className="container">
           <div className="row">
-            <Promo name="30 Day return " icon={"refresh"} />
-            <Promo name="Free shipping " icon={"truck"} />
-            <Promo name="Secure Payments" icon={"lock"} />
-            <Promo name="New Products" icon={"gift"} />
+            <Promo name="30 Day return " icon={"refresh"} index={1} />
+            <Promo name="Free shipping " icon={"truck"} index={2} />
+            <Promo name="Secure Payments" icon={"lock"} index={3} />
+            <Promo name="New Products" icon={"gift"} index={4} />
           </div>
         </div>
       </div>
@@ -115,15 +118,16 @@ export default function Home() {
         </div>
       </div>
       <div className="product-widget-area">
-          <div className="zigzag-bottom" />
-          <div class="container">
-        <div class="row">
-            <TopSellerProducts/>
-            <TopNewProducts/>
-            
+        <div className="zigzag-bottom" />
+        <div class="container">
+          <div class="row">
+            <TopSellerProducts />
+            <RecentViewedProducts />
+            <TopNewProducts />
+          </div>
         </div>
-        </div>
-        </div>
+        <Footer />
+      </div>
     </Fragment>
   );
 }
