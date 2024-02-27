@@ -6,6 +6,7 @@ import { useProductContext } from "../../store/productContext";
 export default function TopNewProducts() {
   const { data } = useFetchData("top-new-products", "db.json");
   const {state, fetchData} = useProductContext()
+  
   const [number, setNumber] = React.useState(2)
   const loadMore  =()=>{
     setNumber((prevNumber)=>{

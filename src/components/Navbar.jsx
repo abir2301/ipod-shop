@@ -8,7 +8,7 @@ export default function Navbar() {
             <div className="row">
                 <div className="navbar">
                     <ul className="nav navbar-nav navbar-expand">
-                        <li className="active"><Link to="/">Home</Link></li>
+                        <li className="active"><Link to="/home">Home</Link></li>
                         <li><Link to="/shop/samsung">Samsung</Link></li>
                         <li><Link to="/shop/apple">Apple</Link></li>
                         <li><Link to="/shop/lg">LG</Link></li>

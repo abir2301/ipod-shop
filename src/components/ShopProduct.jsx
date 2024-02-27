@@ -15,12 +15,12 @@ export default function ShopProduct({ marque }) {
   const [pagination, setPagination] = React.useState([[]]);
   const [screen, setScreen] = React.useState([]);
 //   const { data, isFetching } = useFetchData("products-lists", "db.json");
-  React.useEffect(() => {
-    fetchData()
+//   React.useEffect(() => {
+//     fetchData()
    
     
-  }, []);
-  console.log(state)
+//   }, []);
+//   console.log(state)
   React.useEffect(() => {
     
     console.log("inside the shop products ")

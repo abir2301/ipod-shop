@@ -7,8 +7,12 @@ import Produit from "./screens/Produit"
 import { ProductProvider } from "./store/productContext"
 const router = createBrowserRouter([
   {
-    path :"/", element: <Home/>
-  }, {
+    path :"/", element: <ShopProducts/>
+  },
+  {
+    path :"/home", element: <Home/>
+  },
+   {
     path:"/shop" , element : <ShopProducts/>,
     children:[
       {
