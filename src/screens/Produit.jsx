@@ -2,11 +2,13 @@ import React from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import useFetchImage from "../hooks/useFetchImage";
+import { useProductContext } from "../store/productContext";
 
 export default function Produit() {
   const { marque, id } = useParams();
   const [product, setProduct] = React.useState({});
   const { data, isFetching } = useFetchData("products-lists", "db.json");
+ 
   
   React.useEffect(() => {
     if  (data){ console.log(data , isFetching);

@@ -4,11 +4,9 @@ import SingelProduct from "../SingelProduct";
 import { useProductContext } from "../../store/productContext";
 
 export default function RecentViewedProducts() {
-  const {data} = useFetchData()
-  const {state, fetchData} = useProductContext()
-  console.log("inside the recent view ")
-  console.log(state )
-  // const {  data } = useFetchData("top-new-products");
+ 
+  const {state} = useProductContext()
+
   
   return (
     <div className="col-md-4">
@@ -18,8 +16,9 @@ export default function RecentViewedProducts() {
           View All
         </a>
         <>
-         
-          {data.length == 0 ? (
+        {state.loading && <p>Loading...</p>}
+        {state.error && <p>Error: {state.error}</p>}
+          {/* {state.data. == 0 ? (
             <p> No Data Yet </p>
           ) : (
             data.map((product) => {
@@ -29,7 +28,7 @@ export default function RecentViewedProducts() {
                 </div>
               );
             })
-          )}
+          )} */}
         </>
       </div>
     </div>

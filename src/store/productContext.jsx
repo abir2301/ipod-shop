@@ -37,7 +37,8 @@ export const ProductProvider = ({ children }) => {
     try {
       const response = await fetch('../../data/db.json');
       const data = await response.json();
-      console.log(data)
+    
+      
       dispatch({ type: ACTIONS.FETCH_DATA_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: ACTIONS.FETCH_DATA_FAILURE, payload: error.message });

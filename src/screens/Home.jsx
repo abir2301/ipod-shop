@@ -21,8 +21,9 @@ export default function Home() {
   const {state, fetchData} = useProductContext()
   React.useEffect(() => {
     fetchData();
-    console.log(state)
+   
   }, []);
+  console.log(state)
   const Carousel = () => {
     return (
       <div className="slider-area">

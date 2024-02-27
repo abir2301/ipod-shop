@@ -2,6 +2,7 @@ import React from "react";
 import useFetchData from "../hooks/useFetchData";
 import ProductCard from "./ProductCard";
 import { splitRangeIntoIntervals } from "../utils/pagination";
+import { useProductContext } from "../store/productContext";
 
 export default function ShopProduct({ marque }) {
   const [products, setProducts] = React.useState({
@@ -9,19 +10,30 @@ export default function ShopProduct({ marque }) {
     items: [],
     id: 0,
   });
+  const {state, fetchData } = useProductContext()
   const [style, setStyle] = React.useState({ 1: true, 2: false, 3: false });
   const [pagination, setPagination] = React.useState([[]]);
   const [screen, setScreen] = React.useState([]);
-  const { data, isFetching } = useFetchData("products-lists", "db.json");
+//   const { data, isFetching } = useFetchData("products-lists", "db.json");
   React.useEffect(() => {
-    const filteredData = data.filter(
+    fetchData()
+   
+    
+  }, []);
+  console.log(state)
+  React.useEffect(() => {
+    
+    console.log("inside the shop products ")
+     console.log(state)
+    const filteredData =state.data['products-lists'].filter(
       (item) => item.name.toUpperCase() === marque.toUpperCase()
     );
     setProducts(...filteredData);
 
     setPagination(splitRangeIntoIntervals(1, 50, 3));
     setScreen(pagination[0]);
-  }, [marque, data, products]);
+  }, [marque, products]);
+  
 
   const handleNextPage = () => {
     const index = pagination.findIndex(
@@ -69,7 +81,7 @@ export default function ShopProduct({ marque }) {
         <div className="zigzag-bottom"></div>
         <div className="container">
           <div className="row">
-            {isFetching && <>fetch data </>}
+            {state.loading && <>fetch data </>}
             {products?.items.length == 0 && <>vide </>}
             {products === undefined && <>fetching data </>}
             {products?.items.slice(screen[0], screen[1]).map((product) => {
