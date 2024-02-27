@@ -18,12 +18,11 @@ import { useProductContext } from "../store/productContext";
 import Footer from "../components/Footer";
 import React from "react";
 export default function Home() {
-  const {state, fetchData} = useProductContext()
+  const { state, fetchData } = useProductContext();
   React.useEffect(() => {
     fetchData();
-   
   }, []);
-  console.log(state)
+
   const Carousel = () => {
     return (
       <div className="slider-area">

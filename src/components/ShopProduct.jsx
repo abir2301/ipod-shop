@@ -10,22 +10,12 @@ export default function ShopProduct({ marque }) {
     items: [],
     id: 0,
   });
-  const {state, fetchData } = useProductContext()
+  const { state, fetchData } = useProductContext();
   const [style, setStyle] = React.useState({ 1: true, 2: false, 3: false });
   const [pagination, setPagination] = React.useState([[]]);
   const [screen, setScreen] = React.useState([]);
-//   const { data, isFetching } = useFetchData("products-lists", "db.json");
-//   React.useEffect(() => {
-//     fetchData()
-   
-    
-//   }, []);
-//   console.log(state)
   React.useEffect(() => {
-    
-    console.log("inside the shop products ")
-     console.log(state)
-    const filteredData =state.data['products-lists'].filter(
+    const filteredData = state.data["products-lists"].filter(
       (item) => item.name.toUpperCase() === marque.toUpperCase()
     );
     setProducts(...filteredData);
@@ -33,7 +23,6 @@ export default function ShopProduct({ marque }) {
     setPagination(splitRangeIntoIntervals(1, 50, 3));
     setScreen(pagination[0]);
   }, [marque, products]);
-  
 
   const handleNextPage = () => {
     const index = pagination.findIndex(

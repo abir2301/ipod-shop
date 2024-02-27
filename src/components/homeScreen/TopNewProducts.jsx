@@ -4,15 +4,14 @@ import SingelProduct from "../SingelProduct";
 import { useProductContext } from "../../store/productContext";
 
 export default function TopNewProducts() {
-  const { data } = useFetchData("top-new-products", "db.json");
-  const {state, fetchData} = useProductContext()
-  
-  const [number, setNumber] = React.useState(2)
-  const loadMore  =()=>{
-    setNumber((prevNumber)=>{
-      return (number+1)
-    })
-  }
+  const { state, fetchData } = useProductContext();
+
+  const [number, setNumber] = React.useState(2);
+  const loadMore = () => {
+    setNumber((prevNumber) => {
+      return number + 1;
+    });
+  };
 
   return (
     <div className="col-md-4">
@@ -22,12 +21,12 @@ export default function TopNewProducts() {
           View All
         </button>
         <>
-        {state.loading && <p>Loading...</p>}
-        {state.error && <p>Error: {state.error}</p>}
-          {state.data['top-new-products'].length == 0 ? (
+          {state.loading && <p>Loading...</p>}
+          {state.error && <p>Error: {state.error}</p>}
+          {state.data["top-new-products"].length == 0 ? (
             <p> no-data </p>
           ) : (
-            state.data['top-new-products'].slice(0,number).map((product) => {
+            state.data["top-new-products"].slice(0, number).map((product) => {
               return (
                 <div key={product.id}>
                   <SingelProduct product={product} />
