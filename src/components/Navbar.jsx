@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default function Navbar() {
   return (
@@ -7,12 +8,12 @@ export default function Navbar() {
             <div className="row">
                 <div className="navbar">
                     <ul className="nav navbar-nav navbar-expand">
-                        <li className="active"><a href="index.html">Home</a></li>
-                        <li><a href="#">Samsung</a></li>
-                        <li><a href="#">Apple</a></li>
-                        <li><a href="#">LG</a></li>
-                        <li><a href="#">Sony</a></li>
-                        <li><a href="#">Huawei</a></li>
+                        <li className="active"><Link to="/">Home</Link></li>
+                        <li><Link to="/shop/samsung">Samsung</Link></li>
+                        <li><Link to="/shop/apple">Apple</Link></li>
+                        <li><Link to="/shop/lg">LG</Link></li>
+                        <li><Link to="/shop/sony">Sony</Link></li>
+                        <li><Link to="/shop/huawei">Huawei</Link></li>
                     </ul>
                 </div>  
             </div>

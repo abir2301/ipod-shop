@@ -14,8 +14,15 @@ import brand6 from "../assets/img/brand6.png";
 import TopSellerProducts from "../components/homeScreen/TopSellerProducts";
 import TopNewProducts from "../components/homeScreen/TopNewProducts";
 import RecentViewedProducts from "../components/homeScreen/RecentViewedProducts";
+import { useProductContext } from "../store/productContext";
 import Footer from "../components/Footer";
+import React from "react";
 export default function Home() {
+  const {state, fetchData} = useProductContext()
+  React.useEffect(() => {
+    fetchData();
+    console.log(state)
+  }, []);
   const Carousel = () => {
     return (
       <div className="slider-area">
@@ -119,8 +126,8 @@ export default function Home() {
       </div>
       <div className="product-widget-area">
         <div className="zigzag-bottom" />
-        <div class="container">
-          <div class="row">
+        <div className="container">
+          <div className="row">
             <TopSellerProducts />
             <RecentViewedProducts />
             <TopNewProducts />
