@@ -1,3 +1,4 @@
+ import {Link } from "react-router-dom"
 export default function Footer() {
   return (
     <div className="footer-top-area">
@@ -23,19 +24,19 @@ export default function Footer() {
               <h2 className="footer-wid-title">Categories </h2>
               <ul>
                 <li>
-                  <a href="#">LG</a>
+                  <Link to={"/shop/lg"}>LG</Link>
                 </li>
                 <li>
-                  <a href="#">Samsung</a>
+                <Link to={"/shop/samsung"}>Samsung</Link>
                 </li>
                 <li>
-                  <a href="#">Sony</a>
+                <Link to={"/shop/sony"}>Sony</Link>
                 </li>
                 <li>
-                  <a href="#">Apple</a>
+                <Link to={"/shop/apple"}>Apple</Link>
                 </li>
                 <li>
-                  <a href="#">Huawei</a>
+                <Link to={"/shop/huawei"}>huawei</Link>
                 </li>
               </ul>
             </div>

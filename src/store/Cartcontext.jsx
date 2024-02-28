@@ -6,6 +6,7 @@ export const CartContext = createContext({
 });
 
 const cartReducer = (state, action) => {
+  // add item to cart 
   if (action.type == "ADD_ITEM") {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.item.id
@@ -23,6 +24,7 @@ const cartReducer = (state, action) => {
 
     return { ...state, items: updatedItems };
   }
+  //decrement quantity of fixed item 
   if (action.type == "REMOVE_ITEM") {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
@@ -42,6 +44,7 @@ const cartReducer = (state, action) => {
     }
     return { ...state, items: updatedItems };
   }
+  // delete produit from cart 
   if (action.type == "DELETE_ITEM") {
     const existingCartItemIndex = state.items.findIndex(
       (item) => item.id === action.id
@@ -54,6 +57,7 @@ const cartReducer = (state, action) => {
       return { ...state, items: updatedItems };
     }
   }
+  // add item to cart with specific quantity 
   return state;
 };
 export const CartContextProvider = ({ children }) => {

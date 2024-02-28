@@ -7,6 +7,7 @@ import Produit from "./screens/Produit";
 import { ProductProvider } from "./store/productContext";
 import { CartContextProvider } from "./store/Cartcontext";
 import Cart from "./screens/Cart";
+import { RecentViewProductsRrovider } from "./store/RecentViewProduct";
 
 const router = createBrowserRouter([
   {
@@ -55,9 +56,11 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ProductProvider>
+      <RecentViewProductsRrovider>
       <CartContextProvider>
         <RouterProvider router={router} />
       </CartContextProvider>
+      </RecentViewProductsRrovider>
     </ProductProvider>
   );
 }

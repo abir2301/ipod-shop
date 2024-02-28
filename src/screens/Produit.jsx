@@ -15,6 +15,7 @@ export default function Produit() {
   const { state, fetchData } = useProductContext();
 
   React.useEffect(() => {
+   
     const filteredData = state.data["products-lists"].filter(
       (item) => item.name.toUpperCase() === marque.toUpperCase()
     );
@@ -152,7 +153,7 @@ export default function Produit() {
                           size="4"
                           className="input-text qty text"
                           title="Qty"
-                          value="1"
+                          defaultValue="1"
                           name="quantity"
                           min="1"
                           step="1"

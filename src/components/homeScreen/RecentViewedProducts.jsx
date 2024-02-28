@@ -1,34 +1,46 @@
-import React from "react";
+import React , {useContext} from "react";
 import useFetchData from "../../hooks/useFetchData";
 import SingelProduct from "../SingelProduct";
 import { useProductContext } from "../../store/productContext";
+import { RecentViewProductsContext } from "../../store/RecentViewProduct";
+
 
 export default function RecentViewedProducts() {
- 
-  const {state} = useProductContext()
+ const   context = useContext(RecentViewProductsContext)
+ const [number, setNumber] = React.useState(2);
+ const loadMore = () => {
+   setNumber((prevNumber) => {
+     return number + 1;
+   });
+ };
+React.useEffect(()=>{
+context.getRecentViewProducts()
+
+}, [])
 
   
   return (
     <div className="col-md-4">
       <div className="single-product-widget">
         <h2 className="product-wid-title">Recently viewed </h2>
-        <a href="#" className="wid-view-more">
+        <button onClick={loadMore} className="wid-view-more">
           View All
-        </a>
+        </button>
         <>
-        {state.loading && <p>Loading...</p>}
-        {state.error && <p>Error: {state.error}</p>}
-          {/* {state.data. == 0 ? (
+        {/* {state.loading && <p>Loading...</p>}
+        {state.error && <p>Error: {state.error}</p>} */}
+          {context.items.length == 0 ? (
             <p> No Data Yet </p>
           ) : (
-            data.map((product) => {
+            context.items.slice(0,number).map((product) => {
+           
               return (
                 <div key={product.id}>
                   <SingelProduct product={product} />
                 </div>
               );
             })
-          )} */}
+          )}
         </>
       </div>
     </div>

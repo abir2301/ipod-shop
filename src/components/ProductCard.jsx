@@ -2,10 +2,11 @@ import React, { Fragment, useContext } from "react";
 import useFetchImage from "../hooks/useFetchImage";
 import { Link } from "react-router-dom";
 import { CartContext } from "../store/Cartcontext";
-
+import { RecentViewProductsContext } from "../store/RecentViewProduct";
 export default function ProductCard({ product, marque }) {
   const { image } = useFetchImage(marque, product["imageName"]);
   const ctx = useContext(CartContext);
+  const recentViewContext = useContext(RecentViewProductsContext);
   const handleAddTocart = (item) => {
     ctx.addItem(item);
   };
@@ -27,8 +28,14 @@ export default function ProductCard({ product, marque }) {
           >
             <img src={image} alt={product.name} />
           </div>
-          <h2>
-            <Link to={`/product/${marque}/${product.id}`}>{product.name} </Link>
+          <h2
+            onClick={(e) => {
+             
+             recentViewContext.addProduct(product);
+             
+            }}
+          >
+            <Link to={`/product/${marque}/${product.id}`}>{product.name}</Link>
           </h2>
           <div className="product-carousel-price">
             <ins>{priceDiscount}</ins> <del>{product.price}</del>
