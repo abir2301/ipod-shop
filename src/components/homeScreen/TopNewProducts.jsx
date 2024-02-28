@@ -5,14 +5,17 @@ import { useProductContext } from "../../store/productContext";
 
 export default function TopNewProducts() {
   const { state, fetchData } = useProductContext();
-
+  
   const [number, setNumber] = React.useState(2);
   const loadMore = () => {
     setNumber((prevNumber) => {
       return number + 1;
     });
   };
-
+  React.useEffect(() => {
+    fetchData()
+   
+  }, [state.data]);
   return (
     <div className="col-md-4">
       <div className="single-product-widget">

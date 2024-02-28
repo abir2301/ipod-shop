@@ -22,6 +22,10 @@ export default function Home() {
   React.useEffect(() => {
     fetchData();
   }, []);
+  React.useEffect(() => {
+    fetchData();
+  }, [state.data]);
+  
 
   const Carousel = () => {
     return (

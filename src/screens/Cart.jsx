@@ -1,15 +1,18 @@
-import React, { Fragment, useContext } from "react";
+import React, { Fragment, useContext , useState } from "react";
 import Header from "../components/header/Header";
 import Footer from "../components/Footer";
 import { CartContext } from "../store/Cartcontext";
 import useFetchImage from "../hooks/useFetchImage";
+import { Link } from "react-router-dom";
+import { cartTotal, } from "../utils/totalPriceCalculation";
+import SuggestedProducts from "../components/SuggestedProducts";
 export default function Cart() {
+  // const [itemImages, setItemImages] = useState({});
   const ctx = useContext(CartContext);
-  const cartTotal = ctx.items.reduce(
-    (totalPrice, item) => totalPrice + item.quantity * item.price,
-    0
-  );
-  const { image } = useFetchImage("Apple", "apple-ipad-97-2017.jpg");
+  const cartTotalNB =  cartTotal(ctx.items)
+  
+ 
+  
   return (
     <Fragment>
       <Header serach={false} />
@@ -35,7 +38,7 @@ export default function Cart() {
                     <tbody>
                       {ctx.items.map((item) => {
                         const marque = item.name.split(" ")[0];
-                        const { image } = useFetchImage(marque, item.imageName);
+                   
                         return (
                           <>
                             <tr key={item.id} className="cart_item">
@@ -58,13 +61,14 @@ export default function Cart() {
                                     width="145"
                                     height="145"
                                     className="shop_thumbnail"
-                                    src={image}
+                                    src={`/src/assets/img/${marque}/${item.imageName}`}
+                                    // src={itemImages[item.id]}
                                   />
                                 </a>
                               </td>
 
                               <td className="product-name">
-                                <a href="single-product.html">{item.name}</a>
+                              <Link to={`/product/${marque}/${item.id}`}>{item.name}</Link>
                               </td>
 
                               <td className="product-price">
@@ -129,59 +133,7 @@ export default function Cart() {
                     <div className="cross-sells">
                       <h2>You may be interested in...</h2>
                       <ul className="products">
-                        {/* <li className="product">
-                          <a href="single-product.html">
-                            <img
-                              width="325"
-                              height="325"
-                              alt="T_4_front"
-                              className="attachment-shop_catalog wp-post-image"
-                              src="img/product-2.jpg"
-                            />
-                            <h3>Ship Your Idea</h3>
-                            <span className="price">
-                              <span className="amount">20.00 €</span>
-                            </span>
-                          </a>
-
-                          <a
-                            className="add_to_cart_button"
-                            data-quantity="1"
-                            data-product_sku=""
-                            data-product_id="22"
-                            rel="nofollow"
-                            href="single-product.html"
-                          >
-                            Add to Cart
-                          </a>
-                        </li>
-
-                        <li className="product">
-                          <a href="single-product.html">
-                            <img
-                              width="325"
-                              height="325"
-                              alt="T_4_front"
-                              className="attachment-shop_catalog wp-post-image"
-                              src="img/product-4.jpg"
-                            />
-                            <h3>Ship Your Idea</h3>
-                            <span className="price">
-                              <span className="amount">20.00 €</span>
-                            </span>
-                          </a>
-
-                          <a
-                            className="add_to_cart_button"
-                            data-quantity="1"
-                            data-product_sku=""
-                            data-product_id="22"
-                            rel="nofollow"
-                            href="single-product.html"
-                          >
-                            Add to Cart
-                          </a>
-                        </li> */}
+                     {/* <SuggestedProducts marque ={ctx.items[0].name.split(' ')[0]}/> */}
                       </ul>
                     </div>
 
@@ -193,13 +145,13 @@ export default function Cart() {
                           <tr className="cart-subtotal">
                             <th>Cart Subtotal</th>
                             <td>
-                              <span className="amount">{cartTotal} €</span>
+                              <span className="amount">{cartTotalNB} €</span>
                             </td>
                           </tr>
 
                           <tr className="shipping">
                             <th>Taxe (20%)</th>
-                            <td>{(cartTotal * 0.2).toFixed(2)} €</td>
+                            <td>{(cartTotalNB * 0.2).toFixed(2)} €</td>
                           </tr>
 
                           <tr className="order-total">
@@ -207,7 +159,7 @@ export default function Cart() {
                             <td>
                               <strong>
                                 <span className="amount">
-                                  {(cartTotal * 1.2).toFixed(2)}€
+                                  {(cartTotalNB * 1.2).toFixed(2)}€
                                 </span>
                               </strong>{" "}
                             </td>

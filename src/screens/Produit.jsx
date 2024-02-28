@@ -1,4 +1,5 @@
 import React from "react";
+import { useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import useFetchData from "../hooks/useFetchData";
 import useFetchImage from "../hooks/useFetchImage";
@@ -6,6 +7,11 @@ import { useProductContext } from "../store/productContext";
 import img1 from "../assets/img/product-thumb-1.jpg";
 import img2 from "../assets/img/product-thumb-2.jpg";
 import img3 from "../assets/img/product-thumb-2.jpg";
+import { CartContext } from "../store/Cartcontext";
+import RecentViewedProducts from "../components/homeScreen/RecentViewedProducts";
+import Header from "../components/header/Header";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Produit() {
   const { marque, id } = useParams();
@@ -13,7 +19,8 @@ export default function Produit() {
   const [categories, setCategories] = React.useState([]);
 
   const { state, fetchData } = useProductContext();
-
+  const cartCtx = useContext(CartContext)
+  const { image, isLoading } = useFetchImage(marque, product.imageName)
   React.useEffect(() => {
    
     const filteredData = state.data["products-lists"].filter(
@@ -28,87 +35,44 @@ export default function Produit() {
 
     setProduct(getProduct);
   }, [marque, id]);
+  const [quantity, setQuantity] = React.useState(1);
 
-  const { image, isLoading } = useFetchImage(marque, product.imageName);
+ 
+  const handleQuantityChange = (event) => {
+    const newQuantity = Math.max(parseInt(event.target.value), 1);
+    setQuantity(newQuantity);
+  };
+  const handleFormSubmit = (event, product) => {
+    event.preventDefault(); 
+    cartCtx.addItemWithQuantity(product, quantity)
+  };
+ 
   const priceDiscount = (
     product.price -
     product.price * product.discountRate * 0.01
   ).toFixed(2);
+
   return (
+    <div>
+      <Header/>
+      <Navbar/>
     <div className="single-product-area">
       <div className="zigzag-bottom"></div>
       <div className="container">
         <div className="row">
-          <div className="col-md-4">
-            <div className="single-sidebar">
-              <h2 className="sidebar-title">Recently Viewed</h2>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>700.00 € </ins> <del>100.00 €</del>
+        
+          <div className="col-md-4" >
+          <RecentViewedProducts styling={true }/>
+                    <div className="single-sidebar">
+                        <h2 className="sidebar-title">Others brands</h2>
+                        <ul>
+                           {categories.map((ctg)=>{
+                            return (  <li key={ctg.id }><Link to={"/shop/"+ ctg.name}>{ctg.name}</Link></li>)
+                           })}
+                        </ul>
+                    </div>
                 </div>
-              </div>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>$700.00</ins> <del>$100.00</del>
-                </div>
-              </div>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>$700.00</ins> <del>$100.00</del>
-                </div>
-              </div>
-              <div className="thubmnail-recent">
-                <img
-                  src="img/product-thumb-1.jpg"
-                  className="recent-thumb"
-                  alt=""
-                />
-                <h2>
-                  <a href="">Sony Smart TV - 2015</a>
-                </h2>
-                <div className="product-sidebar-price">
-                  <ins>$700.00</ins> <del>$100.00</del>
-                </div>
-              </div>
-            </div>
-
-            <div className="single-sidebar">
-              <h2 className="sidebar-title">Others brands</h2>
-              <ul>
-                {categories.map((ctg) => {
-                  return (
-                    <li key={ctg.id}>
-                      <Link href="">{ctg.name}</Link>
-                    </li>
-                  );
-                })}
-              </ul>
-            </div>
-          </div>
+          
 
           <div className="col-md-8">
             <div className="product-content-right">
@@ -122,17 +86,17 @@ export default function Produit() {
                 <div className="col-sm-6">
                   <div className="product-images">
                     <div className="product-main-img">
-                      {isLoading ? (
+                      {isLoading || image == null ? (
                         <p>Loading...</p>
                       ) : (
                         <div>
-                          <img src={image} alt={product.name} />
+                          <img src={`/src/assets/img/${marque}/${product.imageName}`} alt={product.name} />
                         </div>
                       )}
                     </div>
 
                     <div className="product-gallery">
-                      <img src={img1} alt="" />
+                      <img src={"/src/assets/img/Apple/apple-ipad-97-2017.jpg"} alt="" />
                       <img src={img2} alt="" />
                       <img src={img3} alt="" />
                     </div>
@@ -146,7 +110,7 @@ export default function Produit() {
                       <ins>${priceDiscount}</ins> <del>${product.price}</del>
                     </div>
 
-                    <form action="" className="cart">
+                    <form onSubmit={()=>{handleFormSubmit(event, product)}} className="cart">
                       <div className="quantity">
                         <input
                           type="number"
@@ -156,7 +120,7 @@ export default function Produit() {
                           defaultValue="1"
                           name="quantity"
                           min="1"
-                          step="1"
+                          onChange={handleQuantityChange}
                         />
                       </div>
                       <button className="add_to_cart_button" type="submit">
@@ -185,6 +149,8 @@ export default function Produit() {
           </div>
         </div>
       </div>
+    </div>
+    <Footer/>
     </div>
   );
 }

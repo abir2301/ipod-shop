@@ -15,14 +15,22 @@ export default function ShopProduct({ marque }) {
   const [pagination, setPagination] = React.useState([[]]);
   const [screen, setScreen] = React.useState([]);
   React.useEffect(() => {
-    const filteredData = state.data["products-lists"].filter(
-      (item) => item.name.toUpperCase() === marque.toUpperCase()
-    );
-    setProducts(...filteredData);
+    fetchData()
+   
+  }, []);
+  React.useEffect(() => {
+ 
+    if (state.data && state.data["products-lists"]) {
+      const filteredData = state.data["products-lists"].filter(
+          (item) => item.name.toUpperCase() === marque.toUpperCase()
+      );
+      setProducts(...filteredData);
 
-    setPagination(splitRangeIntoIntervals(1, 50, 3));
-    setScreen(pagination[0]);
-  }, [marque, products]);
+      setPagination(splitRangeIntoIntervals(1, 50, 3));
+      setScreen(pagination[0]);
+  }
+ 
+  }, [marque,state.data]);
 
   const handleNextPage = () => {
     const index = pagination.findIndex(
