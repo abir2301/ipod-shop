@@ -8,14 +8,14 @@ import { ProductProvider } from "./store/productContext";
 import { CartContextProvider } from "./store/Cartcontext";
 import Cart from "./screens/Cart";
 import { RecentViewProductsRrovider } from "./store/RecentViewProduct";
+import Checkout from "./screens/checkout";
+import { CategoriesProvider } from "./store/CategoriesContext";
+import { TopSellerProvider } from "./store/TopSellerProductsContext";
+import { TopNewProvider } from "./store/topNewProductsContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ShopProducts />,
-  },
-  {
-    path: "/home",
     element: <Home />,
   },
   {
@@ -52,15 +52,25 @@ const router = createBrowserRouter([
     path: "/cart",
     element: <Cart />,
   },
+  {
+    path: "/checkout",
+    element: <Checkout />,
+  },
 ]);
 function App() {
   return (
     <ProductProvider>
-      <RecentViewProductsRrovider>
-      <CartContextProvider>
-        <RouterProvider router={router} />
-      </CartContextProvider>
-      </RecentViewProductsRrovider>
+      <CategoriesProvider>
+        <TopSellerProvider>
+          <TopNewProvider>
+            <RecentViewProductsRrovider>
+              <CartContextProvider>
+                <RouterProvider router={router} />
+              </CartContextProvider>
+            </RecentViewProductsRrovider>
+          </TopNewProvider>
+        </TopSellerProvider>
+      </CategoriesProvider>
     </ProductProvider>
   );
 }

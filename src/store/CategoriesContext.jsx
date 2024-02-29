@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import  { createContext, useReducer, useContext } from 'react';
 
 const initialState = {
     data: [],
@@ -24,18 +24,19 @@ const initialState = {
         return state;
     }
   };
-  const ProductContext = createContext();
-  export const useProductContext = () => useContext(ProductContext);
+  const CategoriesContext = createContext();
+  export const useCategoriesContext = () => useContext(CategoriesContext);
 
 // Define DataProvider component
-export const ProductProvider = ({ children }) => {
+export const CategoriesProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Define fetch function
-  const fetchData = async () => {
+  
+  const fetchCategories = async () => {
     dispatch({ type: ACTIONS.FETCH_DATA_REQUEST });
     try {
-      const response = await fetch('http://localhost:3000/products-lists');
+      const response = await fetch('http://localhost:3000/categories');
+     
       const data = await response.json();
     
       
@@ -46,8 +47,8 @@ export const ProductProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider value={{ state, fetchData }}>
+    <CategoriesContext.Provider value={{ state, fetchCategories }}>
       {children}
-    </ProductContext.Provider>
+    </CategoriesContext.Provider>
   );
 };

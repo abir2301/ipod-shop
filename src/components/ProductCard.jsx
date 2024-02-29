@@ -1,4 +1,4 @@
-import React, { Fragment, useContext } from "react";
+import  { Fragment, useContext } from "react";
 import useFetchImage from "../hooks/useFetchImage";
 import { Link } from "react-router-dom";
 import { CartContext } from "../store/Cartcontext";

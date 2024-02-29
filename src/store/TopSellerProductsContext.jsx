@@ -1,4 +1,4 @@
-import React, { createContext, useReducer, useContext } from 'react';
+import  { createContext, useReducer, useContext } from 'react';
 
 const initialState = {
     data: [],
@@ -24,21 +24,21 @@ const initialState = {
         return state;
     }
   };
-  const ProductContext = createContext();
-  export const useProductContext = () => useContext(ProductContext);
+  const TopSellerContext = createContext();
+  export const useTopSellerContext = () => useContext(TopSellerContext);
 
 // Define DataProvider component
-export const ProductProvider = ({ children }) => {
+export const TopSellerProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  // Define fetch function
-  const fetchData = async () => {
+  
+  const fetchTopSeller = async () => {
     dispatch({ type: ACTIONS.FETCH_DATA_REQUEST });
     try {
-      const response = await fetch('http://localhost:3000/products-lists');
+      const response = await fetch('http://localhost:3000/top-sellers-products');
+     
       const data = await response.json();
-    
-      
+   
       dispatch({ type: ACTIONS.FETCH_DATA_SUCCESS, payload: data });
     } catch (error) {
       dispatch({ type: ACTIONS.FETCH_DATA_FAILURE, payload: error.message });
@@ -46,8 +46,8 @@ export const ProductProvider = ({ children }) => {
   };
 
   return (
-    <ProductContext.Provider value={{ state, fetchData }}>
+    <TopSellerContext.Provider value={{ state, fetchTopSeller }}>
       {children}
-    </ProductContext.Provider>
+    </TopSellerContext.Provider>
   );
 };

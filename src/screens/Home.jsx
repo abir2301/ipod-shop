@@ -14,14 +14,9 @@ import brand6 from "../assets/img/brand6.png";
 import TopSellerProducts from "../components/homeScreen/TopSellerProducts";
 import TopNewProducts from "../components/homeScreen/TopNewProducts";
 import RecentViewedProducts from "../components/homeScreen/RecentViewedProducts";
-import { useProductContext } from "../store/productContext";
 import Footer from "../components/Footer";
-import React from "react";
 export default function Home() {
-  const { state, fetchData } = useProductContext();
-  React.useEffect(() => {
-    fetchData();
-  }, []);
+ 
 
   const Carousel = () => {
     return (

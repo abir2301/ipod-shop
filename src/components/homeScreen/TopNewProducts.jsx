@@ -1,17 +1,22 @@
 import React from "react";
-import useFetchData from "../../hooks/useFetchData";
+
 import SingelProduct from "../SingelProduct";
-import { useProductContext } from "../../store/productContext";
+
+import { useTopNewContext } from "../../store/topNewProductsContext";
 
 export default function TopNewProducts() {
-  const { state, fetchData } = useProductContext();
-
+  const { state, fetchTopNew } = useTopNewContext();
+  
   const [number, setNumber] = React.useState(2);
   const loadMore = () => {
     setNumber((prevNumber) => {
-      return number + 1;
+      return prevNumber + 1;
     });
   };
+  React.useEffect(() => {
+    fetchTopNew()
+   
+  },[] );
 
   return (
     <div className="col-md-4">
@@ -23,10 +28,10 @@ export default function TopNewProducts() {
         <>
           {state.loading && <p>Loading...</p>}
           {state.error && <p>Error: {state.error}</p>}
-          {state.data["top-new-products"].length == 0 ? (
+          {state.data== null  ? (
             <p> no-data </p>
           ) : (
-            state.data["top-new-products"].slice(0, number).map((product) => {
+            state.data.slice(0, number).map((product) => {
               return (
                 <div key={product.id}>
                   <SingelProduct product={product} />
