@@ -5,3 +5,10 @@ export function  cartTotal  (data){
       );
       return  cartTotalCal.toFixed(2)
 }
+export function discountPrice (product){
+  return (
+   ( product.price -
+    product.price * product.discountRate * 0.01
+  ).toFixed(2))
+
+}

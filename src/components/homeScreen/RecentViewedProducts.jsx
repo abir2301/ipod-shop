@@ -1,7 +1,5 @@
 import React , {useContext} from "react";
-import useFetchData from "../../hooks/useFetchData";
 import SingelProduct from "../SingelProduct";
-import { useProductContext } from "../../store/productContext";
 import { RecentViewProductsContext } from "../../store/RecentViewProduct";
 
 
@@ -10,7 +8,7 @@ export default function RecentViewedProducts({styling  = false }) {
  const [number, setNumber] = React.useState(2);
  const loadMore = () => {
    setNumber((prevNumber) => {
-     return number + 1;
+     return prevNumber + 1;
    });
  };
 React.useEffect(()=>{
@@ -29,8 +27,7 @@ context.getRecentViewProducts()
         </button>}
         
         <>
-        {/* {state.loading && <p>Loading...</p>}
-        {state.error && <p>Error: {state.error}</p>} */}
+       
           {context.items.length == 0 ? (
             <p> No Data Yet </p>
           ) : (

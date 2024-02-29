@@ -1,11 +1,8 @@
-import { useContext, createContext, useState, useReducer } from "react";
+import { createContext, useReducer } from "react";
 export const CartContext = createContext({
   items: [],
   addItem: (item) => {},
   removeItem: (item) => {},
-  addItemWithQuantity :  (item , quantity)=>{
-
-  }
 });
 
 const cartReducer = (state, action) => {
@@ -61,27 +58,10 @@ const cartReducer = (state, action) => {
     }
   }
   // add item to cart with specific quantity 
-  if (action.type == "ADD_ITEM-QANTITY") {
-    const existingCartItemIndex = state.items.findIndex(
-      (item) => item.id === action.item.id
-    );
-    const updatedItems = [...state.items];
-    if (existingCartItemIndex !== -1) {
-      const updatedItem = {
-        ...state.items[existingCartItemIndex],
-        quantity: state.items[existingCartItemIndex].quantity + action.quantity,
-      };
-      updatedItems[existingCartItemIndex] = updatedItem;
-    } else {
-      updatedItems.push({ ...action.item, quantity: action.quantity });
-    }
-
-    return { ...state, items: updatedItems };
-  }
   return state;
 };
 export const CartContextProvider = ({ children }) => {
-  const [items, setItems] = useState([]);
+  // const [items, setItems] = useState([]);
   const [cart, dispatchCartAction] = useReducer(cartReducer, { items: [] });
 
   function addItem(item) {
@@ -93,15 +73,11 @@ export const CartContextProvider = ({ children }) => {
   function deleteItem(id) {
     dispatchCartAction({ type: "DELETE_ITEM", id });
   }
-  function addItemWithQuantity(item , quantity ) {
-    dispatchCartAction({ type: "ADD_ITEM-QANTITY", item , quantity });
-  }
   const cartContext = {
     items: cart.items,
     addItem,
     removeItem,
     deleteItem,
-    addItemWithQuantity
   };
   return (
     <CartContext.Provider value={cartContext}>{children}</CartContext.Provider>

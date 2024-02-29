@@ -10,6 +10,85 @@ export default function Cart() {
   // const [itemImages, setItemImages] = useState({});
   const ctx = useContext(CartContext);
   const cartTotalNB =  cartTotal(ctx.items)
+  const ProductLine=({item})=>{
+    const marque = item.name.split(" ")[0];
+                   
+    return (
+      <>
+        <tr key={item.id} className="cart_item">
+          <td className="product-remove">
+            <button
+              title="Remove this item"
+              className="remove"
+              onClick={() => {
+                ctx.deleteItem(item.id);
+              }}
+            >
+              ×
+            </button>
+          </td>
+
+          <td className="product-thumbnail">
+            <a href="single-product.html">
+              <img
+                alt={item.imageName}
+                width="145"
+                height="145"
+                className="shop_thumbnail"
+                src={`/src/assets/img/${marque}/${item.imageName}`}
+                // src={itemImages[item.id]}
+              />
+            </a>
+          </td>
+
+          <td className="product-name">
+          <Link to={`/product/${marque}/${item.id}`}>{item.name}</Link>
+          </td>
+
+          <td className="product-price">
+            <span className="amount">{item.price}€</span>
+          </td>
+
+          <td className="product-quantity">
+            <div className="quantity buttons_added">
+              <button
+                onClick={() => {
+                  ctx.removeItem(item.id);
+                }}
+                className="minus"
+              >
+                -
+              </button>
+              <input
+                type="number"
+                size="4"
+                className="input-text qty text"
+                title="Qty"
+                value={item.quantity}
+                min="0"
+                step="1"
+              />
+              <button
+                onClick={() => {
+                  ctx.addItem(item);
+                }}
+                className="plus"
+                value="+"
+              >
+                +
+              </button>
+            </div>
+          </td>
+
+          <td className="product-subtotal">
+            <span className="amount">
+              {item.quantity * item.price} €
+            </span>
+          </td>
+        </tr>
+      </>
+    );
+  }
   
  
   
@@ -36,94 +115,19 @@ export default function Cart() {
                       </tr>
                     </thead>
                     <tbody>
-                      {ctx.items.map((item) => {
-                        const marque = item.name.split(" ")[0];
-                   
-                        return (
-                          <>
-                            <tr key={item.id} className="cart_item">
-                              <td className="product-remove">
-                                <button
-                                  title="Remove this item"
-                                  className="remove"
-                                  onClick={() => {
-                                    ctx.deleteItem(item.id);
-                                  }}
-                                >
-                                  ×
-                                </button>
-                              </td>
-
-                              <td className="product-thumbnail">
-                                <a href="single-product.html">
-                                  <img
-                                    alt={item.imageName}
-                                    width="145"
-                                    height="145"
-                                    className="shop_thumbnail"
-                                    src={`/src/assets/img/${marque}/${item.imageName}`}
-                                    // src={itemImages[item.id]}
-                                  />
-                                </a>
-                              </td>
-
-                              <td className="product-name">
-                              <Link to={`/product/${marque}/${item.id}`}>{item.name}</Link>
-                              </td>
-
-                              <td className="product-price">
-                                <span className="amount">{item.price}€</span>
-                              </td>
-
-                              <td className="product-quantity">
-                                <div className="quantity buttons_added">
-                                  <button
-                                    onClick={() => {
-                                      ctx.removeItem(item.id);
-                                    }}
-                                    className="minus"
-                                  >
-                                    -
-                                  </button>
-                                  <input
-                                    type="number"
-                                    size="4"
-                                    className="input-text qty text"
-                                    title="Qty"
-                                    value={item.quantity}
-                                    min="0"
-                                    step="1"
-                                  />
-                                  <button
-                                    onClick={() => {
-                                      ctx.addItem(item);
-                                    }}
-                                    className="plus"
-                                    value="+"
-                                  >
-                                    +
-                                  </button>
-                                </div>
-                              </td>
-
-                              <td className="product-subtotal">
-                                <span className="amount">
-                                  {item.quantity * item.price} €
-                                </span>
-                              </td>
-                            </tr>
-                          </>
-                        );
-                      })}
+                      {ctx.items.map((item) => 
+                      {return (
+                        <ProductLine item={item} key={item.id}/>
+                      )} 
+                       )}
 
                       <tr>
                         <td className="actions" colSpan="6">
-                          <input
-                            type="button"
-                            value="Checkout"
+                          <button
+                            
                             name="proceed"
                             className="checkout-button button alt wc-forward"
-                          />
+                          ><Link to={"/checkout"}>checkout</Link></button>
                         </td>
                       </tr>
                     </tbody>
@@ -133,7 +137,7 @@ export default function Cart() {
                     <div className="cross-sells">
                       <h2>You may be interested in...</h2>
                       <ul className="products">
-                     {/* <SuggestedProducts marque ={ctx.items[0].name.split(' ')[0]}/> */}
+                    
                       </ul>
                     </div>
 

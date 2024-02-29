@@ -1,5 +1,14 @@
- import {Link } from "react-router-dom"
+import { Link } from "react-router-dom";
+import { useCategoriesContext } from "../store/CategoriesContext";
+import { useEffect } from "react";
+
 export default function Footer() {
+  const { state, fetchCategories } = useCategoriesContext();
+  useEffect(() => {
+    if (state == undefined) {
+      fetchCategories();
+    }
+  }, []);
   return (
     <div className="footer-top-area">
       <div className="zigzag-bottom"></div>
@@ -23,21 +32,16 @@ export default function Footer() {
             <div className="footer-menu">
               <h2 className="footer-wid-title">Categories </h2>
               <ul>
-                <li>
-                  <Link to={"/shop/lg"}>LG</Link>
-                </li>
-                <li>
-                <Link to={"/shop/samsung"}>Samsung</Link>
-                </li>
-                <li>
-                <Link to={"/shop/sony"}>Sony</Link>
-                </li>
-                <li>
-                <Link to={"/shop/apple"}>Apple</Link>
-                </li>
-                <li>
-                <Link to={"/shop/huawei"}>huawei</Link>
-                </li>
+                {state.data.map((ctg) => {
+                  return (
+                    <li key={ctg.id}>
+                      {" "}
+                      <Link to={`/shop/${ctg.name.toLowerCase()}`}>
+                        {ctg.name}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           </div>

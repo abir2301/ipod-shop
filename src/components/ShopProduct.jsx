@@ -1,5 +1,5 @@
 import React from "react";
-import useFetchData from "../hooks/useFetchData";
+
 import ProductCard from "./ProductCard";
 import { splitRangeIntoIntervals } from "../utils/pagination";
 import { useProductContext } from "../store/productContext";
@@ -11,7 +11,7 @@ export default function ShopProduct({ marque }) {
     id: 0,
   });
   const { state, fetchData } = useProductContext();
-  const [style, setStyle] = React.useState({ 1: true, 2: false, 3: false });
+
   const [pagination, setPagination] = React.useState([[]]);
   const [screen, setScreen] = React.useState([]);
   React.useEffect(() => {
@@ -20,8 +20,8 @@ export default function ShopProduct({ marque }) {
   }, []);
   React.useEffect(() => {
  
-    if (state.data && state.data["products-lists"]) {
-      const filteredData = state.data["products-lists"].filter(
+    if (state.data && state.data) {
+      const filteredData = state.data.filter(
           (item) => item.name.toUpperCase() === marque.toUpperCase()
       );
       setProducts(...filteredData);
@@ -38,12 +38,7 @@ export default function ShopProduct({ marque }) {
     );
     if (index != 2) {
       setScreen(pagination[index + 1]);
-      console.log(index);
-      setStyle((prev) => {
-        const newState = { 1: false, 2: false, 3: false };
-        newState[index + 2] = true;
-        return newState;
-      });
+     
     }
   };
 
@@ -53,11 +48,7 @@ export default function ShopProduct({ marque }) {
     );
     if (index != 0) {
       setScreen(pagination[index - 1]);
-      setStyle((prev) => {
-        const newState = { 1: false, 2: false, 3: false };
-        newState[index + 1] = true;
-        return newState;
-      });
+     
     }
   };
 
@@ -110,7 +101,7 @@ export default function ShopProduct({ marque }) {
                   <li className="page-item">
                     <a
                       className="page-link"
-                      style={style[1] ? { backgroundColor: "grey" } : null}
+                     
                     >
                       1
                     </a>
@@ -118,7 +109,7 @@ export default function ShopProduct({ marque }) {
                   <li className="page-item">
                     <a
                       className="page-link"
-                      style={style[2] ? { backgroundColor: "grey" } : null}
+                      
                     >
                       2
                     </a>
@@ -126,7 +117,7 @@ export default function ShopProduct({ marque }) {
                   <li className="page-item">
                     <a
                       className="page-link"
-                      style={style[3] ? { backgroundColor: "grey" } : null}
+                     
                     >
                       3
                     </a>
