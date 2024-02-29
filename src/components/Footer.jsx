@@ -5,9 +5,7 @@ import { useEffect } from "react";
 export default function Footer() {
   const { state, fetchCategories } = useCategoriesContext();
   useEffect(() => {
-    if (state == undefined) {
-      fetchCategories();
-    }
+    fetchCategories();
   }, []);
   return (
     <div className="footer-top-area">
