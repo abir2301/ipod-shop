@@ -1,18 +1,18 @@
-import React, { Fragment, useContext , useState } from "react";
+import React, { Fragment, useContext, useState } from "react";
 import Header from "../components/header/Header";
 import Footer from "../components/Footer";
 import { CartContext } from "../store/Cartcontext";
 import useFetchImage from "../hooks/useFetchImage";
 import { Link } from "react-router-dom";
-import { cartTotal, } from "../utils/totalPriceCalculation";
+import { cartTotal } from "../utils/totalPriceCalculation";
 import SuggestedProducts from "../components/SuggestedProducts";
 export default function Cart() {
   // const [itemImages, setItemImages] = useState({});
   const ctx = useContext(CartContext);
-  const cartTotalNB =  cartTotal(ctx.items)
-  const ProductLine=({item})=>{
+  const cartTotalNB = cartTotal(ctx.items);
+  const ProductLine = ({ item }) => {
     const marque = item.name.split(" ")[0];
-                   
+
     return (
       <>
         <tr key={item.id} className="cart_item">
@@ -42,7 +42,7 @@ export default function Cart() {
           </td>
 
           <td className="product-name">
-          <Link to={`/product/${marque}/${item.id}`}>{item.name}</Link>
+            <Link to={`/product/${marque}/${item.id}`}>{item.name}</Link>
           </td>
 
           <td className="product-price">
@@ -81,17 +81,13 @@ export default function Cart() {
           </td>
 
           <td className="product-subtotal">
-            <span className="amount">
-              {item.quantity * item.price} €
-            </span>
+            <span className="amount">{item.quantity * item.price} €</span>
           </td>
         </tr>
       </>
     );
-  }
-  
- 
-  
+  };
+
   return (
     <Fragment>
       <Header serach={false} />
@@ -115,19 +111,21 @@ export default function Cart() {
                       </tr>
                     </thead>
                     <tbody>
-                      {ctx.items.map((item) => 
-                      {return (
-                        <ProductLine item={item} key={item.id}/>
-                      )} 
-                       )}
+                      {ctx.items.map((item) => {
+                        return <ProductLine item={item} key={item.id} />;
+                      })}
 
                       <tr>
                         <td className="actions" colSpan="6">
                           <button
-                            
+                            onClick={async () => {
+                            await   ctx.postCart()
+                            }}
                             name="proceed"
                             className="checkout-button button alt wc-forward"
-                          ><Link to={"/checkout"}>checkout</Link></button>
+                          >
+                            <Link to={"/checkout"}>checkout</Link>
+                          </button>
                         </td>
                       </tr>
                     </tbody>
@@ -136,9 +134,7 @@ export default function Cart() {
                   <div className="cart-collaterals">
                     <div className="cross-sells">
                       <h2>You may be interested in...</h2>
-                      <ul className="products">
-                    
-                      </ul>
+                      <ul className="products"></ul>
                     </div>
 
                     <div className="cart_totals ">

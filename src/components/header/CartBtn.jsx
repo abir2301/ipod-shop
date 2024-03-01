@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { CartContext } from "../../store/Cartcontext";
 import { cartTotal } from "../../utils/totalPriceCalculation";
 
-export default function CartBtn() {
+export default function CartBtn({search }) {
  
  
   const ctx = useContext(CartContext);
@@ -11,7 +11,7 @@ export default function CartBtn() {
 
 
   return (
-    <div className="col-sm-4">
+    <div className={search ?"col-sm-4" : "col-sm-6"}>
       <div className="shopping-item">
         <Link to={"/cart"}>
           Cart : <span className="cart-amunt">{cartTotal(ctx.items)}</span>{" "}

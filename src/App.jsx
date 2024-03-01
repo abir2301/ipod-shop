@@ -12,6 +12,8 @@ import Checkout from "./screens/checkout";
 import { CategoriesProvider } from "./store/CategoriesContext";
 import { TopSellerProvider } from "./store/TopSellerProductsContext";
 import { TopNewProvider } from "./store/topNewProductsContext";
+import { OrderContextProvider } from "./store/OderContext";
+import ErrorScreen from "./screens/NotFoundScreen";
 
 const router = createBrowserRouter([
   {
@@ -56,6 +58,10 @@ const router = createBrowserRouter([
     path: "/checkout",
     element: <Checkout />,
   },
+  {
+    path: "/*",
+    element: <ErrorScreen />,
+  },
 ]);
 function App() {
   return (
@@ -65,7 +71,9 @@ function App() {
           <TopNewProvider>
             <RecentViewProductsRrovider>
               <CartContextProvider>
+                <OrderContextProvider>
                 <RouterProvider router={router} />
+                </OrderContextProvider>
               </CartContextProvider>
             </RecentViewProductsRrovider>
           </TopNewProvider>

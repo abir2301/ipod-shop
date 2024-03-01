@@ -3,23 +3,24 @@ import React from "react";
 import logo from "../../assets/img/logo.png";
 import SearchBar from "./SearchBar";
 import CartBtn from "./CartBtn";
+import { Link } from "react-router-dom";
 
 export default function Header({ serach = true }) {
   return (
     <div className="site-branding-area">
       <div className="container">
         <div className="row">
-          <div className="col-sm-4">
+          <div className={serach ?"col-sm-4" : "col-sm-6"}>
             <div className="logo" style={{ width: "100px", height: "100px" }}>
               <h1>
-                <a href="index.html">
+                <Link to={"/"}>
                   <img src={logo} alt="Logo" />
-                </a>
+                </Link>
               </h1>
             </div>
           </div>
           {serach && <SearchBar />}
-          <CartBtn />
+          <CartBtn  search={serach}/>
         </div>
       </div>
     </div>

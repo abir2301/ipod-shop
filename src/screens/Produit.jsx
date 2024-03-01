@@ -25,17 +25,22 @@ export default function Produit() {
   const cartCtx = useContext(CartContext);
 
   React.useEffect(() => {
-    fetchData();
+    if (state.data.length == 0){
+    
+      fetchData();
+    }
+    
     if(categoriesState.data == undefined){
       fetchCategories()
     }
   }, []);
   React.useEffect(() => {
-    if (state.data) {
+     
+    if (state.data.length != 0) {
       const filteredData = state.data.filter(
         (item) => item.name.toUpperCase() === marque.toUpperCase()
       );
-
+     
       const getProduct = filteredData[0].items.find((item) => item.id == id);
       const otherCategories =categoriesState.data.filter(
         (ctg) => ctg.name.toUpperCase() != marque.toUpperCase()
@@ -44,7 +49,7 @@ export default function Produit() {
 
       setProduct(getProduct);
     }
-  }, [marque, id, state]);
+  }, [ state.data]);
   const [quantity, setQuantity] = React.useState(1);
 
   const handleQuantityChange = (event) => {
