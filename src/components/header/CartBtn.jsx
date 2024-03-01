@@ -2,13 +2,14 @@ import React, { useContext, useEffect , useState } from "react";
 import { Link } from "react-router-dom";
 import { CartContext } from "../../store/Cartcontext";
 import { cartTotal } from "../../utils/totalPriceCalculation";
+import { useAllProductContext } from "../../store/AllProducts";
 
 export default function CartBtn({search }) {
+  const {data  , fetchProducts} = useAllProductContext()
  
  
   const ctx = useContext(CartContext);
-  
-
+   
 
   return (
     <div className={search ?"col-sm-4" : "col-sm-6"}>

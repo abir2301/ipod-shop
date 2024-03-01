@@ -122,9 +122,15 @@ export default function Cart() {
                             await   ctx.postCart()
                             }}
                             name="proceed"
+                            style={{
+                              padding:"8px", 
+                              backgroundColor:"#5a88ca",
+                              borderWidth:"0px",
+                               color:"white"
+                            }}
                             className="checkout-button button alt wc-forward"
                           >
-                            <Link to={"/checkout"}>checkout</Link>
+                            <Link style={{color:"white"}} to={"/checkout"}>checkout</Link>
                           </button>
                         </td>
                       </tr>

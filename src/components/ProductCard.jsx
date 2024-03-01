@@ -1,4 +1,4 @@
-import  { Fragment, useContext } from "react";
+import { Fragment, useContext } from "react";
 import useFetchImage from "../hooks/useFetchImage";
 import { Link } from "react-router-dom";
 import { CartContext } from "../store/Cartcontext";
@@ -18,21 +18,12 @@ export default function ProductCard({ product, marque }) {
     <Fragment>
       <div className="col-md-3 col-sm-6">
         <div className="single-shop-product">
-          <div
-            className="product-upper"
-            style={{
-              borderRadius: "10px",
-              borderWidth: "5px",
-              borderColor: "black",
-            }}
-          >
+          <div className="product-upper">
             <img src={image} alt={product.name} />
           </div>
           <h2
             onClick={(e) => {
-             
-             recentViewContext.addProduct(product);
-             
+              recentViewContext.addProduct(product);
             }}
           >
             <Link to={`/product/${marque}/${product.id}`}>{product.name}</Link>

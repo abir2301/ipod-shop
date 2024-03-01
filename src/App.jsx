@@ -14,6 +14,9 @@ import { TopSellerProvider } from "./store/TopSellerProductsContext";
 import { TopNewProvider } from "./store/topNewProductsContext";
 import { OrderContextProvider } from "./store/OderContext";
 import ErrorScreen from "./screens/NotFoundScreen";
+import { AllProductProvider } from "./store/AllProducts";
+import { SearchContextProvider } from "./store/searchContext";
+import Search from "./screens/Search";
 
 const router = createBrowserRouter([
   {
@@ -59,13 +62,20 @@ const router = createBrowserRouter([
     element: <Checkout />,
   },
   {
+    path: "/search",
+    element: <Search />,
+  },
+  {
     path: "/*",
     element: <ErrorScreen />,
   },
+ 
 ]);
 function App() {
   return (
+    <AllProductProvider>
     <ProductProvider>
+      <SearchContextProvider>
       <CategoriesProvider>
         <TopSellerProvider>
           <TopNewProvider>
@@ -79,7 +89,9 @@ function App() {
           </TopNewProvider>
         </TopSellerProvider>
       </CategoriesProvider>
+      </SearchContextProvider>
     </ProductProvider>
+    </AllProductProvider>
   );
 }
 

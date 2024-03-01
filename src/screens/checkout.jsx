@@ -4,9 +4,12 @@ import Header from "../components/header/Header";
 import Footer from "../components/Footer";
 import BillingForm from "../components/checkout/BillingForm";
 import { OrderContext } from "../store/OderContext";
+import { cartTotal } from "../utils/totalPriceCalculation";
+import ShopTable from "../components/ShopTable";
 
 export default function Checkout() {
   const cart = useContext(CartContext);
+  const subTotal =cartTotal(cart.items)
   const orderCTX = useContext(OrderContext)
   const [formData, setFormData] = useState({
     civility: "",
@@ -257,7 +260,7 @@ export default function Checkout() {
                                   <option value="Mme">Mme</option>
                                 </select>
                                 {errors.civility && (
-                                  <span>{errors.civility}</span>
+                                  <span  style ={{color:"red"}}  className="invalid-feedback">{errors.civility}</span>
                                 )}
                               </p>
                               <p
@@ -279,7 +282,7 @@ export default function Checkout() {
                                   value={formData.fname}
                                   onChange={handleChange}
                                 />
-                                {errors.fname && <span>{errors.fname}</span>}
+                                {errors.fname && <span  style ={{color:"red"}}>{errors.fname}</span>}
                               </p>
                               <p
                                 id="billing_last_name_field"
@@ -300,7 +303,7 @@ export default function Checkout() {
                                   value={formData.lname}
                                   onChange={handleChange}
                                 />
-                                {errors.lname && <span>{errors.lname}</span>}
+                                {errors.lname && <span  style ={{color:"red"}}>{errors.lname}</span>}
                               </p>
                               <div className="clear" />
                               <p
@@ -320,7 +323,7 @@ export default function Checkout() {
                                   onChange={handleChange}
                                 />
                                 {errors.company && (
-                                  <span>{errors.company}</span>
+                                  <span  style ={{color:"red"}}>{errors.company}</span>
                                 )}
                               </p>
                               <p
@@ -342,7 +345,7 @@ export default function Checkout() {
                                   value={formData.street}
                                   onChange={handleChange}
                                 />
-                                {errors.street && <span>{errors.street}</span>}
+                                {errors.street && <span  style ={{color:"red"}}>{errors.street}</span>}
                               </p>
                               {/* <p
                                 id="billing_address_2_field"
@@ -358,7 +361,7 @@ export default function Checkout() {
                                   value={formData.address_2}
                                   onChange={handleChange}
                                 />
-                                {errors.address_2 && <span>{errors.address_2}</span>}
+                                {errors.address_2 && <span  style ={{color:"red"}}>{errors.address_2}</span>}
                               </p> */}
                               <p
                                 id="billing_city_field"
@@ -380,7 +383,7 @@ export default function Checkout() {
                                   value={formData.city}
                                   onChange={handleChange}
                                 />
-                                {errors.city && <span>{errors.city}</span>}
+                                {errors.city && <span  style ={{color:"red"}}>{errors.city}</span>}
                               </p>
                               <p
                                 id="billing_state_field"
@@ -397,7 +400,7 @@ export default function Checkout() {
                                   value={formData.state}
                                   onChange={handleChange}
                                 />
-                                {errors.state && <span>{errors.state}</span>}
+                                {errors.state && <span  style ={{color:"red"}}>{errors.state}</span>}
                               </p>
                               <p
                                 id="billing_postcode_field"
@@ -420,7 +423,7 @@ export default function Checkout() {
                                   onChange={handleChange}
                                 />
                                 {errors.postcode && (
-                                  <span>{errors.postcode}</span>
+                                  <span  style ={{color:"red"}}>{errors.postcode}</span>
                                 )}
                               </p>
                               <div className="clear" />
@@ -443,7 +446,7 @@ export default function Checkout() {
                                   value={formData.email}
                                   onChange={handleChange}
                                 />
-                                {errors.email && <span>{errors.email}</span>}
+                                {errors.email && <span  style ={{color:"red"}}>{errors.email}</span>}
                               </p>
                               <p
                                 id="billing_phone_field"
@@ -464,7 +467,7 @@ export default function Checkout() {
                                   value={formData.phone}
                                   onChange={handleChange}
                                 />
-                                {errors.phone && <span>{errors.phone}</span>}
+                                {errors.phone && <span  style ={{color:"red"}}>{errors.phone}</span>}
                               </p>
                               <div className="clear" />
                             </div>
@@ -488,7 +491,7 @@ export default function Checkout() {
                                   onChange={handleChange}
                                 />
                                 {errors.different_address && (
-                                  <span>{errors.different_address}</span>
+                                  <span  style ={{color:"red"}}>{errors.different_address}</span>
                                 )}
                               </h3>
                               {formData.different_address && (
@@ -522,7 +525,7 @@ export default function Checkout() {
                                         <option value="Mme">Mme</option>
                                       </select>
                                       {errors.civility_ship && (
-                                        <span>{errors.civility_ship}</span>
+                                        <span  style ={{color:"red"}}>{errors.civility_ship}</span>
                                       )}
                                     </p>
                                     <p
@@ -551,7 +554,7 @@ export default function Checkout() {
                                         onChange={handleChange}
                                       />
                                       {errors.fname_ship && (
-                                        <span>{errors.fname_ship}</span>
+                                        <span  style ={{color:"red"}} style={{color:"red"}}>{errors.fname_ship}</span>
                                       )}
                                     </p>
                                     <p
@@ -577,7 +580,7 @@ export default function Checkout() {
                                         onChange={handleChange}
                                       />
                                       {errors.lname_ship && (
-                                        <span>{errors.lname_ship}</span>
+                                        <span  style ={{color:"red"}}>{errors.lname_ship}</span>
                                       )}
                                     </p>
                                     <div className="clear" />
@@ -598,7 +601,7 @@ export default function Checkout() {
                                         onChange={handleChange}
                                       />
                                       {errors.company_ship && (
-                                        <span>{errors.company_ship}</span>
+                                        <span  style ={{color:"red"}}>{errors.company_ship}</span>
                                       )}
                                     </p>
                                     <p
@@ -624,7 +627,7 @@ export default function Checkout() {
                                         onChange={handleChange}
                                       />
                                       {errors.street_ship && (
-                                        <span>{errors.street_ship}</span>
+                                        <span  style ={{color:"red"}}>{errors.street_ship}</span>
                                       )}
                                     </p>
                                     {/* <p
@@ -639,7 +642,7 @@ export default function Checkout() {
                                     name="address_2"
                                     className="input-text "
                                   />
-                                  {errors.address_2 && <span>{errors.address_2}</span>}
+                                  {errors.address_2 && <span  style ={{color:"red"}}>{errors.address_2}</span>}
                                 </p> */}
                                     <p
                                       id="shipping_city_field"
@@ -665,7 +668,7 @@ export default function Checkout() {
                                         onChange={handleChange}
                                       />
                                       {errors.city_ship && (
-                                        <span>{errors.city_ship}</span>
+                                        <span  style ={{color:"red"}}>{errors.city_ship}</span>
                                       )}
                                     </p>
                                     <p
@@ -686,7 +689,7 @@ export default function Checkout() {
                                         className="input-text "
                                       />
                                       {errors.state_ship && (
-                                        <span>{errors.state_ship}</span>
+                                        <span  style ={{color:"red"}}>{errors.state_ship}</span>
                                       )}
                                     </p>
                                     <p
@@ -713,7 +716,7 @@ export default function Checkout() {
                                         onChange={handleChange}
                                       />
                                       {errors.postcode_ship && (
-                                        <span>{errors.postcode_ship}</span>
+                                        <span  style ={{color:"red"}}>{errors.postcode_ship}</span>
                                       )}
                                     </p>
                                     <div className="clear" />
@@ -735,7 +738,7 @@ export default function Checkout() {
                                       value={formData.note}
                                       onChange={handleChange}
                                     />
-                                    {errors.note && <span>{errors.note}</span>}
+                                    {errors.note && <span  style ={{color:"red"}}>{errors.note}</span>}
                                   </p>
                                 </>
                               )}
@@ -744,55 +747,7 @@ export default function Checkout() {
                         </div>
                         <h3 id="order_review_heading">Your order</h3>
                         <div id="order_review" style={{ position: "relative" }}>
-                          <table className="shop_table">
-                            <thead>
-                              <tr>
-                                <th className="product-name">Product</th>
-                                <th className="product-total">Total</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {cart.items?.map((item) => (
-                                <tr className="cart_item" key={item.id}>
-                                  <td className="product-name">
-                                    {item.name}{" "}
-                                    <strong className="product-quantity">
-                                      × {item.quantity}
-                                    </strong>{" "}
-                                  </td>
-                                  <td className="product-total">
-                                    <span className="amount">
-                                      £{item.price * item.quantity}
-                                    </span>{" "}
-                                  </td>
-                                </tr>
-                              ))}
-                            </tbody>
-                            <tfoot>
-                              <tr className="cart-subtotal">
-                                <th>Cart Subtotal</th>
-                                <td>
-                                  <span className="amount">
-                                    £{cart.subTotal}
-                                  </span>
-                                </td>
-                              </tr>
-                              <tr className="shipping">
-                                <th>Taxe (20%)</th>
-                                {/* <td>{cart.tax?.toFixed(2)}€</td> */}
-                              </tr>
-                              <tr className="order-total">
-                                <th>Order Total</th>
-                                <td>
-                                  <strong>
-                                    <span className="amount">
-                                      {/* {cart.total} €{" "} */}
-                                    </span>
-                                  </strong>{" "}
-                                </td>
-                              </tr>
-                            </tfoot>
-                          </table>
+                          <ShopTable cart={cart} subTotal={subTotal}/>
                           <div id="payment">
                             <ul className="payment_methods methods">
                               <li className="payment_method_bacs">
@@ -885,6 +840,12 @@ export default function Checkout() {
                             <div className="form-row place-order">
                               <button
                                 type="submit"
+                                style={{
+                                  padding:"8px", 
+                                  backgroundColor:"#5a88ca",
+                                  borderWidth:"0px",
+                                   color:"white"
+                                }}
                                 // ="Place order"
                                 id="place_order"
                                 name="woocommerce_checkout_place_order"
