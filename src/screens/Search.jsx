@@ -3,12 +3,35 @@ import { SearchContext } from '../store/searchContext'
 import Header from '../components/header/Header'
 import Footer from '../components/Footer'
 import ProductCard from "../components/ProductCard";
+import { splitRangeIntoIntervals } from '../utils/pagination';
 
 export default function Search() {
+    const [pagination, setPagination] = React.useState([[]]);
+    const [screen, setScreen] = React.useState([]);
     const ctx = useContext(SearchContext)
     React.useEffect(()=>{
-        console.log(ctx)
+        setPagination(splitRangeIntoIntervals(1, ctx.data.length, 3));
+        setScreen(pagination[0]);
+        
     }, [])
+    const handleNextPage = () => {
+        const index = pagination.findIndex(
+          (item) => item[0] === screen[0] && item[1] == screen[1]
+        );
+        if (index != 2) {
+          setScreen(pagination[index + 1]);
+         
+        }
+      };
+      const handlePrevPage = () => {
+        const index = pagination.findIndex(
+          (item) => item[0] === screen[0] && item[1] == screen[1]
+        );
+        if (index != 0) {
+          setScreen(pagination[index - 1]);
+         
+        }
+      };
   return (
     <Fragment>
       <Header></Header>
@@ -39,7 +62,7 @@ export default function Search() {
                       className="page-link"
                       tabIndex="-1"
                       onClick={() => {
-                        // handlePrevPage();
+                        handlePrevPage();
                       }}
                     >
                       Previous
@@ -73,7 +96,7 @@ export default function Search() {
                     <button
                       className="page-link"
                       onClick={() => {
-                        // handleNextPage();
+                        handleNextPage();
                       }}
                     >
                       Next

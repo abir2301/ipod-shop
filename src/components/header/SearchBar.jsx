@@ -32,15 +32,17 @@ const navigation = useNavigate()
         placeholder="search products ..."
       ></input>
       <button
+      type='button'
         onClick={handleFetchProducts}
         style={{
           padding: "8px",
+          margin : "10px",
           backgroundColor: "#5a88ca",
           borderWidth: "0px",
           color: "white",
         }}
       >
-        {" "}
+    
         search{" "}
       </button>
     </div>
